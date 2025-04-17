@@ -1,38 +1,96 @@
-# 株価データ取得プログラム
+# 株価分析ツール
 
-このプログラムは、Yahoo Finance APIを使用して株価データを取得し、グラフで表示するPythonスクリプトです。
+このツールは、株価データの取得、分析、および投資判断の支援を行うPythonプログラムです。
 
-## 必要な環境
+## 機能
 
-- Python 3.7以上
-- 必要なパッケージ（requirements.txtに記載）
+- 株価データの取得（Alpha Vantage API使用）
+- 技術的分析
+- ニュース取得と分析（Google News API使用）
+- AIによる総合的な投資判断（OpenAI API使用）
 
-## インストール方法
+## 必要条件
 
-1. リポジトリをクローン
-2. 必要なパッケージをインストール:
+- Python 3.8以上
+- 必要なPythonパッケージ（requirements.txtに記載）
+- Alpha Vantage APIキー
+- OpenAI APIキー
+
+## インストール
+
+1. リポジトリをクローン：
+```bash
+git clone [repository-url]
+cd [repository-name]
+```
+
+2. 必要なパッケージをインストール：
 ```bash
 pip install -r requirements.txt
 ```
 
-## 使用方法
+3. `config.py`の設定：
+```python
+# Alpha Vantage APIキーを設定
+ALPHA_VANTAGE_API_KEY = "your-alpha-vantage-api-key"
 
-1. `stock_price.py`を実行:
-```bash
-python stock_price.py
+# OpenAI APIキーを設定
+OPENAI_API_KEY = "your-openai-api-key"
 ```
 
-2. デフォルトではトヨタ自動車（7203.T）の直近1ヶ月の株価データを取得し、グラフで表示します。
+APIキーの取得方法：
+- Alpha Vantage APIキー: https://www.alphavantage.co/support/#api-key
+- OpenAI APIキー: https://platform.openai.com/api-keys
 
-## カスタマイズ方法
+## 使用方法
 
-`stock_price.py`の`if __name__ == "__main__":`セクションで以下のパラメータを変更できます：
+1. プログラムを実行：
+```bash
+python stock_price_alpha.py
+```
 
-- `symbol`: 取得したい株価コード（例：'7203.T'はトヨタ自動車）
-- `period`: データ取得期間（'1d', '5d', '1mo', '3mo', '6mo', '1y', '2y', '5y', '10y', 'ytd', 'max'）
+2. デフォルトではテスラ（TSLA）の株価データを取得します。
+   他の銘柄を分析する場合は、`stock_price_alpha.py`の以下の部分を変更：
+```python
+symbol = "TSLA"  # 分析したい銘柄のティッカーシンボル
+company_name = "Tesla"  # 会社名
+market = "US"    # 市場（US: 米国、JP: 日本）
+```
 
-## 主な機能
+## 出力内容
 
-- 株価データの取得（始値、高値、安値、終値、出来高）
-- 株価推移のグラフ表示
-- エラーハンドリング 
+- 株価データ（過去100日分）
+- 技術的分析結果
+  - 前日比
+  - PER
+  - 配当利回り
+  - 時価総額
+  - 52週間価格帯
+- 最新ニュースと分析
+- AIによる総合的な投資判断
+- 株価チャート
+
+## 注意事項
+
+- APIの利用制限に注意してください
+- 投資判断は参考情報としてご利用ください
+- 実際の投資判断は自己責任で行ってください
+
+## トラブルシューティング
+
+1. APIキーが設定されていない場合：
+   - `config.py`に正しいAPIキーが設定されているか確認
+   - APIキーが有効か確認
+
+2. データが取得できない場合：
+   - インターネット接続を確認
+   - APIの利用制限に達していないか確認
+   - ティッカーシンボルが正しいか確認
+
+3. エラーメッセージが表示される場合：
+   - エラーメッセージを確認
+   - 必要なパッケージが正しくインストールされているか確認
+
+## ライセンス
+
+MIT License
